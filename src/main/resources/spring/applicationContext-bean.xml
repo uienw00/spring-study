@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       ">
+
+    <!-- Retry -->
+    <bean class="org.springframework.retry.annotation.RetryConfiguration" />
+    <bean id="retryTemplate" class="org.springframework.retry.support.RetryTemplate">
+        <property name="retryPolicy" ref="retryPolicy" />
+        <property name="backOffPolicy" ref="exponentialBackOffPolicy" />
+    </bean>
+
+    <bean id="retryPolicy" class="org.springframework.retry.policy.SimpleRetryPolicy"/>
+
+    <bean id="exponentialBackOffPolicy"
+          class="org.springframework.retry.backoff.ExponentialBackOffPolicy">
+        <property name="initialInterval" value="300">
+        </property>
+        <property name="maxInterval" value="3000">
+        </property>
+    </bean>
+    <!-- //Retry -->
+</beans>
