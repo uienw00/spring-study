@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 public class RetryService {
     @Retryable(value = IllegalArgumentException.class, backoff = @Backoff(delay = 100, maxDelay = 101), maxAttempts = 3)
     public boolean retryCall(String str){
-        System.out.println(str+"==========================");
         if(str.equals("error")){
             throw new IllegalArgumentException("errorMessage");
         }
